@@ -32,7 +32,7 @@ def test_steam(driver):
         EC.element_to_be_clickable((By.XPATH, "//*[@id='global_action_menu']//a[contains(@href,'login')]")))
     login_button.click()
 
-    # 3. Ждём загрузку страницы с логином
+    # 3. Ждём загрузку страницы с логином и паролем
     wait.until(
         EC.presence_of_element_located((By.XPATH, "//*[contains(@type,'password')]"))
     )
