@@ -39,7 +39,7 @@ def test_steam(driver):
     wait = WebDriverWait(driver, WAIT_TIMEOUT)
 
     # 1. Открываем главную страницу
-    driver.get('https://store.steampowered.com/')
+    driver.get(URL)
     WebDriverWait(driver, WAIT_TIMEOUT).until(DocumentReadyStateComplete())
 
     # 2. Нажимаем кнопку Войти
