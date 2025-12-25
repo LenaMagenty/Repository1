@@ -22,15 +22,15 @@ PASSWORD_INPUT_LOCATOR = (By.XPATH, "//*[contains(@type,'password')]")
 SUBMIT_BUTTON_LOCATOR = (By.XPATH, "(//button[@type='submit'])[2]")
 SUBMIT_BUTTON_DIS_LOCATOR = (By.XPATH, "//button[@type='submit' and @disabled]")
 SUBMIT_BUTTON_NOT_DIS_LOCATOR = (By.XPATH, "//button[@type='submit' and not(@disabled)]")
-ERROR_TEXT_LOCATOR = (By.XPATH, "//div[contains(@class, '_1W_6HXiG4JJ0By1qN_0fGZ')]")
+ERROR_TEXT_LOCATOR = (By.XPATH, "(//button[@type='submit'])[2]/parent::div/following-sibling::div[1]")
 EXPECTED_ERROR_TEXT = 'Please check your password and account name and try again.'
+OPTIONS = webdriver.ChromeOptions()
 
 
 @pytest.fixture
 def driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument('--window-size=1920,1080')
-    driver = webdriver.Chrome(options=options)
+    OPTIONS.add_argument('--window-size=1920,1080')
+    driver = webdriver.Chrome(options=OPTIONS)
     yield driver
     driver.quit()
 
@@ -78,8 +78,6 @@ def test_steam(driver):
     actual_error_text = wait.until(lambda d: (
             error_text.get_attribute('textContent') or ''
     ).strip())
-
-    assert actual_error_text == EXPECTED_ERROR_TEXT
 
     assert actual_error_text == EXPECTED_ERROR_TEXT, (
         f'Ожидаемый текст ошибки: {EXPECTED_ERROR_TEXT}, но получен: {actual_error_text}'
